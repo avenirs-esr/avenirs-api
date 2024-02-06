@@ -1,2 +1,2 @@
-# avenirs-backend
-Avenirs-ESR ePortfolio - b!ackend module
+# avenirs-api
+Avenirs-ESR ePortfolio - backend module
