@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.avenirsesr.avenirsapi.model;
+package fr.avenirsesr.avenirsapi.notification.model;
 
 /**
  * Priority of a notification. 

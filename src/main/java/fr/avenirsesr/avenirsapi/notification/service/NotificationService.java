@@ -1,13 +1,13 @@
 /**
  * 
  */
-package fr.avenirsesr.avenirsapi.service;
+package fr.avenirsesr.avenirsapi.notification.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.avenirsesr.avenirsapi.model.Notification;
-import fr.avenirsesr.avenirsapi.repository.NotificationRepository;
+import fr.avenirsesr.avenirsapi.notification.model.Notification;
+import fr.avenirsesr.avenirsapi.notification.repository.NotificationRepository;
 
 /**
  * Service associated to the notifications.

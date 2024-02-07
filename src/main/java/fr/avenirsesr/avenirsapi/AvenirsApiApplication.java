@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-import fr.avenirsesr.avenirsapi.model.Notification;
+import fr.avenirsesr.avenirsapi.notification.model.Notification;
 
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class) 

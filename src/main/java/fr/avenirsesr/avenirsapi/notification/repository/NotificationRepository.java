@@ -1,11 +1,11 @@
 /**
  * 
  */
-package fr.avenirsesr.avenirsapi.repository;
+package fr.avenirsesr.avenirsapi.notification.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import fr.avenirsesr.avenirsapi.model.Notification;
+import fr.avenirsesr.avenirsapi.notification.model.Notification;
 
 /**
  * Repository for the notifications.

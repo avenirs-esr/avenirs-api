@@ -2,7 +2,7 @@
  * 
  */
 
-package fr.avenirsesr.avenirsapi.model;
+package fr.avenirsesr.avenirsapi.notification.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
