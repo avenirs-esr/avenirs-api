@@ -3,10 +3,8 @@
  */
 package fr.avenirsesr.avenirsapi.notification.service;
 
-import org.apache.kafka.clients.admin.NewTopic;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.stereotype.Service;
 
 import fr.avenirsesr.avenirsapi.notification.model.Notification;

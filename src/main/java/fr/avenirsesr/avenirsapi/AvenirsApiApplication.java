@@ -13,6 +13,8 @@ import fr.avenirsesr.avenirsapi.notification.model.Notification;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class) 
 public class AvenirsApiApplication implements CommandLineRunner {
+	
+	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(AvenirsApiApplication.class);
 
 	public static void main(String[] args) {
