@@ -24,7 +24,7 @@ public class AvenirsApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		LOGGER.info("Starting Avenirs API");
+		LOGGER.info("Avenirs API is running");
 		LOGGER.warn("Spring security is disabled");
 		
 	}
