@@ -21,7 +21,7 @@ import lombok.Data;
 public class Notification {
 	
 	@Id
-	@GeneratedValue(strategy  =GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	/** The priority of the notification. */
@@ -44,7 +44,19 @@ public class Notification {
 	 * Builds an instance of Notification.
 	 */
 	public Notification() {
-		// TODO Auto-generated constructor stub
+		
+	}
+	
+	/**
+	 * Builds an instance of Notification
+	 * @param header The header of the notification
+	 * @param body The body (message) of the notification.
+	 * @param footer Footer off the notification.
+	 */
+	public Notification(String header, String body, String footer) {
+		this.body = body;
+		this.header = header;
+		this.footer =  footer;
 	}
 
 }

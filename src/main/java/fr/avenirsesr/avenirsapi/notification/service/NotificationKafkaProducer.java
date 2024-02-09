@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import fr.avenirsesr.avenirsapi.notification.model.Notification;
 import lombok.Getter;
 
 /**
@@ -24,8 +25,10 @@ public class NotificationKafkaProducer {
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationKafkaProducer.class);
 	
+	
 	@Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaTemplate<Long, Notification> kafkaTemplate;
+	
 	
 	/** Name of the topic used for the notifications. */
 	@Getter
@@ -33,10 +36,13 @@ public class NotificationKafkaProducer {
 	private String topic;
 
 	
-	public void sendMessage(String message){
-        LOGGER.info(String.format("Message sent -> %s", message));
-        kafkaTemplate.send(this.topic, message);
+	/**
+	 * Send a notification
+	 * @param notification The notification to send
+	 */
+	public void send(Notification notification){
+        LOGGER.info("Notification sent" + notification);
+        LOGGER.info("Notification id" + notification.getId());
+        kafkaTemplate.send(this.topic, notification.getId(), notification);
     }
-
-
 }

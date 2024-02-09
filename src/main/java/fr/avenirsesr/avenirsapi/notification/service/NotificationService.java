@@ -54,6 +54,10 @@ public class NotificationService {
 	 */
 	public void notify(String message) {
 		LOGGER.debug("Message: " + message);
-		this.producer.sendMessage(message);
+		final  Notification notification = new Notification("My header", message, "My footer");
+		final Notification res = repository.save(notification);
+		LOGGER.debug("Initial notification " + notification);
+		LOGGER.debug("Resulting notification " + res);
+		this.producer.send(notification);
 	}
 }
