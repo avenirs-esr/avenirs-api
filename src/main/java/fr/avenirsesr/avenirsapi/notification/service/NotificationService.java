@@ -54,7 +54,7 @@ public class NotificationService {
 	 */
 	public void notify(String message) {
 		LOGGER.debug("Message: " + message);
-		final  Notification notification = new Notification("My header", message, "My footer");
+		final  Notification notification = new Notification(Math.random() < 0.5 ? "deman" : "gribonvald", "My header", message, "My footer");
 		final Notification res = repository.save(notification);
 		LOGGER.debug("Initial notification " + notification);
 		LOGGER.debug("Resulting notification " + res);
