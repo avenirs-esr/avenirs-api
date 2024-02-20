@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.avenirsesr.avenirsapi.health.controller;
+package fr.avenirsesr.avenirsapi.health.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

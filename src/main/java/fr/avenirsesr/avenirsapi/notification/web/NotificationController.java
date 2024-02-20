@@ -1,4 +1,4 @@
-package fr.avenirsesr.avenirsapi.notification.controller;
+package fr.avenirsesr.avenirsapi.notification.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
