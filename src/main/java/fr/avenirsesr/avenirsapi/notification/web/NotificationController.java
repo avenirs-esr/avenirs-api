@@ -25,7 +25,7 @@ public class NotificationController {
 		return service.getNotifications();
 	}
 	
-	@GetMapping("${avenirs.routes.notification.read}")
+	@GetMapping("${avenirs.routes.notification.create}")
 	public String testNotifications(){
 		final String message = "Test notification #" + counter++;
 		LOGGER.debug("testNotifications message sent: " + message);
