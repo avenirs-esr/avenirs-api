@@ -20,12 +20,12 @@ public class NotificationController {
 	@Autowired
 	private NotificationService service;
 	
-	@GetMapping("notifications")
+	@GetMapping("${avenirs.routes.notification.read}")
 	public Iterable<Notification> getNotifications(){
 		return service.getNotifications();
 	}
 	
-	@GetMapping("notifications/test")
+	@GetMapping("${avenirs.routes.notification.read}")
 	public String testNotifications(){
 		final String message = "Test notification #" + counter++;
 		LOGGER.debug("testNotifications message sent: " + message);
