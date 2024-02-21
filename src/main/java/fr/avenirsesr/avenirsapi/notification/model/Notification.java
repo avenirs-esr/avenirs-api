@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.Accessors;
 
 /**
@@ -23,19 +24,17 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
 @Table(name="notification")
 public class Notification {
 	
-	/** Constant for the Broadcast audience */
-	final static String BROADCAST="*";
+	private final static String BROADCAST="*";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	/** Audience of the notification */
-	private String audience;
+	private String[]  audience;
 	
 	/** The priority of the notification. */
 	private NotificationPriority priority = NotificationPriority.MEDIUM;
@@ -60,7 +59,15 @@ public class Notification {
 	 * @param footer Footer off the notification.
 	 */
 	public Notification(String header, String body, String footer) {
-		this(BROADCAST, header, body, footer);
+		this(BROADCAST , header, body, footer);
+	}
+	
+	/**
+	 * Builds an instance of Notification for Broadcasting;
+	 * @param body The body (message) of the notification.
+	 */
+	public Notification(String body) {
+		this(BROADCAST , null, body, null);
 	}
 	
 	/**
@@ -70,23 +77,62 @@ public class Notification {
 	 * @param body The body (message) of the notification.
 	 * @param footer Footer off the notification.
 	 */
-	public Notification(String audience, String header, String body, String footer) {
-		this.audience = audience;
+	public Notification(@NonNull String[] audience, String header, String body, String footer) {
+		this.audience = audience.clone();
 		this.body = body;
 		this.header = header;
 		this.footer =  footer;
 	}
 	
-//	/**
-//	 * Builds an instance of Notification
-//	 * @param header The header of the notification
-//	 * @param body The body (message) of the notification.
-//	 * @param footer Footer off the notification.
-//	 */
-//	public Notification(String header, String body, String footer) {
-//		this.body = body;
-//		this.header = header;
-//		this.footer =  footer;
-//	}
+	/**
+	 * Builds an instance of Notification
+	 * @param audience The audience of the notification.
+	 * @param body The body (message) of the notification.
+	 */
+	public Notification(@NonNull String[] audience, String body) {
+		this(audience, null, body, null);
+	}
+	
+	/**
+	 * Builds an instance of Notification
+	 * @param audience The audience of the notification.
+	 * @param header The header of the notification
+	 * @param body The body (message) of the notification.
+	 * @param footer Footer off the notification.
+	 */
+	public Notification(@NonNull String  audience, String header, String body, String footer) {
+		this.audience = new String[] {audience};
+		this.body = body;
+		this.header = header;
+		this.footer =  footer;
+	}
+	
+	/**
+	 * Builds an instance of Notification
+	 * @param audience The audience of the notification.
+	 * @param header The header of the notification
+	 * @param body The body (message) of the notification.
+	 * @param footer Footer off the notification.
+	 */
+	public Notification(@NonNull String  audience, String body) {
+		this(audience, null, body, null);		
+	}
+	
+	/**
+	 * Determines if the notification has to be broadcasted.
+	 * @return True if the notification targets everyone.
+	 */
+	boolean isBroadcast() {
+		return getAudienceLength() == 1 ? BROADCAST.equals(audience[0]): false;
+	}
+	
+	/**
+	 * Gives the length of the audience.
+	 * @return The number of entries in the audience array. 
+	 */
+	int getAudienceLength() {
+		return audience == null ? 0 : audience.length;	
+	}
+
 
 }

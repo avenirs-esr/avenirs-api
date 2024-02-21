@@ -49,12 +49,12 @@ public class NotificationService {
 	}
 	
 	/**
-	 * Notify a message.
-	 * @param message The message to send.
+	 * Send a notification.
+	 * @param notification The notification to send.
 	 */
-	public void notify(String message) {
-		LOGGER.debug("Message: " + message);
-		final  Notification notification = new Notification(Math.random() < 0.5 ? "deman" : "gribonvald", "My header", message, "My footer");
+	public void send(Notification notification) {
+		LOGGER.debug("Notification: " + notification);
+		// final  Notification notification = new Notification(Math.random() < 0.5 ? "deman" : "gribonvald", "My header", message, "My footer");
 		final Notification res = repository.save(notification);
 		LOGGER.debug("Initial notification " + notification);
 		LOGGER.debug("Resulting notification " + res);
