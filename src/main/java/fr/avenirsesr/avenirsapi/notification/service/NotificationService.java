@@ -6,12 +6,17 @@ package fr.avenirsesr.avenirsapi.notification.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.avenirsesr.avenirsapi.AvenirsApiApplication;
 import fr.avenirsesr.avenirsapi.notification.model.Notification;
 import fr.avenirsesr.avenirsapi.notification.repository.NotificationRepository;
+import fr.avenirsesr.avenirsapi.notification.web.NotificationWebsocketHandler;
+import rx.Subscription;
+import rx.subjects.ReplaySubject;
 
 /**
  * Service associated to the notifications.
@@ -30,14 +35,41 @@ public class NotificationService {
 	/** Kafka producer. */
 	@Autowired
 	private NotificationKafkaProducer producer;
+	
+	
+	/** Kafka consumer. */
+	@Autowired
+	private NotificationKafkaConsumer consumer;
+	
+	
+//	
+//	/** Subscription to the Kafka consumer notification Observable. */
+//	private Subscription subscription;
 
 
-	/**
-	 * Builds an instance of NotificationService.
-	 */
-	public NotificationService() {
-
-	}
+//	/**
+//	 * Subscribe to the notifications Observable.
+//	 */
+//	 @Override
+//	  public void afterPropertiesSet() {
+//		 subscription = consumer.getNotifications$().subscribe((Notification notification) -> processNewNotification(notification));
+//	  }
+	 
+//	 private void processNewNotification(Notification notification) {
+//		 LOGGER.error("Processing new notification: " + notification);
+//		 this.websocketHandler.process(notification);
+//	 }
+	 
+	 /**
+	  * Handles the unsubscription to notifications Observable.
+	  */
+//	 @Override
+//	 public void destroy() {
+//		 if (subscription != null) {
+//			 subscription.unsubscribe();
+//			 subscription = null;
+//		 }
+//	  }
 
 	/**
 	 * Gives all the notifications.
@@ -60,4 +92,10 @@ public class NotificationService {
 		LOGGER.debug("Resulting notification " + res);
 		this.producer.send(notification);
 	}
+	
+	ReplaySubject<Notification> getNotifications$(){
+		return this.consumer.getNotifications$();
+	}
+	
+	
 }

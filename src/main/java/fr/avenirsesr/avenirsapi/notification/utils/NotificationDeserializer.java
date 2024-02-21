@@ -34,6 +34,7 @@ public class NotificationDeserializer implements Deserializer<Notification> {
             LOGGER.debug("Deserializing Notification from data: " + data);
             return objectMapper.readValue(new String(data, "UTF-8"), Notification.class);
         } catch (Exception e) {
+        	System.err.println("deserialize" + data.length);
             throw new SerializationException("Error when deserializing byte[] to Notification");
         }
 	}

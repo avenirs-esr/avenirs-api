@@ -3,52 +3,68 @@
  */
 package fr.avenirsesr.avenirsapi.notification.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
-
-import lombok.Getter;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 
 /**
  * NotificationWebsocketConfiguration
  * @author Arnaud Deman
  * 2024-02-20
  */
+
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+
+import fr.avenirsesr.avenirsapi.notification.service.NotificationService;
+import lombok.Getter;
+
 @Configuration
-@EnableWebSocket
-public class NotificationWebsocketConfiguration implements WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+public class NotificationWebsocketConfiguration  implements WebSocketMessageBrokerConfigurer {
+	
+	/** Logger */
+	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationService.class);
+	
 	/** end point for the notification web socket. */
 	@Getter
-	@Value("${avenirs.routes.notification.ws}")
+	@Value("${avenirs.routes.notification.rt}")
 	private String route;
 	
-	
-	/** CORS: Allowed Origin Pattern. */
+	/** CORS Settings. */
 	@Getter
-	@Value("${avenirs.routes.notification.ws.cors}")
+	@Value("${avenirs.routes.notification.rt.cors}")
 	private String cors;
+	
 	/** CORS: Allowed Origin Pattern. */
 	@Getter
 	@Value("${avenirs.notification.binary.message.limit.octets}")
 	private int limit;
 	
-	
-
 	@Override
-	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(new NotificationWebsocketHandler(), route).setAllowedOriginPatterns(cors);
-	}
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        //config.enableSimpleBroker("/topic");
+        config.enableSimpleBroker(route);
+        //config.setApplicationDestinationPrefixes("/app");
+    }
 
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+    	System.err.println("-----> CORS" + cors);
+         registry.addEndpoint("/messages").setAllowedOriginPatterns(cors);
+         registry.addEndpoint("/messages").setAllowedOriginPatterns(cors).withSockJS();
+    }
+    
     @Bean
-    ServletServerContainerFactoryBean createWebSocketContainer() {
-	    ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
-	    container.setMaxBinaryMessageBufferSize(limit);
-	    return container;
-	}
+	String sendTo(@Value("${avenirs.routes.notification.rt}") String sendTo) {
+        return sendTo;
+    }
+
+
 
 
 }

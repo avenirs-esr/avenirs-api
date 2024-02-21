@@ -45,4 +45,5 @@ public class NotificationKafkaProducer {
         LOGGER.info("Notification id" + notification.getId());
         kafkaTemplate.send(this.topic, notification.getId(), notification);
     }
+	
 }

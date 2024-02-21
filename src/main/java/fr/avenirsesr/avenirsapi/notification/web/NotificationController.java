@@ -26,7 +26,8 @@ public class NotificationController {
 	@GetMapping("${avenirs.routes.notification.create}")
 	public String testNotifications(){
 		final String message = "Test notification #" + counter++;
-		final Notification notification = new Notification(message);
+		final String audience =  Math.random() < 0.5 ? "*": Math.random() < 0.5 ? "deman" : "gribonvald";
+		final Notification notification = new Notification(audience, message);
 		
 		LOGGER.debug("testNotifications message sent: " + message);
 		service.send(notification);

@@ -3,20 +3,15 @@
  */
 package fr.avenirsesr.avenirsapi.notification.model;
 
+import lombok.Data;
+
 /**
  * NotificationQuery
  * @author Arnaud Deman
  * 2024-02-20
  */
+@Data
 public class NotificationQuery {
-	
-	
-
-	/**
-	 * 
-	 */
-	public NotificationQuery() {
-		// TODO Auto-generated constructor stub
-	}
-
+	private String user;
+	private String text;
 }
