@@ -42,6 +42,9 @@ public class NotificationWebsocketHandler implements DisposableBean {
 
 	/** Subscription to the Kafka consumer notification Observable. */
 	private Subscription subscription;
+	
+	/** Current Notification query. */
+	private NotificationQuery query;
 
 	/**
 	 * Handles the unsubscription to notifications Observable.
@@ -64,12 +67,16 @@ public class NotificationWebsocketHandler implements DisposableBean {
 	 * @param query The query used to filter the notifications to process.
 	 */
 	private void subscribe(NotificationQuery query) {
-		dispose();
+		if (this.query != null &&  this.query.getUser().equals(query.getUser())) {
+			dispose();
+		}
+		if (this.subscription == null) {
 		subscription = consumer.getNotifications$().map(notification -> {
 			LOGGER.debug(" map ==> notification" + notification);
 			return notification;
 		}).filter(notification -> notification.isForUser(query.getUser()))
 				.subscribe((Notification notification) -> processNewNotification(query, notification));
+		}
 	}
 
 	/**
