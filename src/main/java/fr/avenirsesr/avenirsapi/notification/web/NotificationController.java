@@ -11,7 +11,6 @@ import fr.avenirsesr.avenirsapi.notification.model.Notification;
 import fr.avenirsesr.avenirsapi.notification.service.NotificationService;
 
 @RestController
-@CrossOrigin(origins = "*")
 public class NotificationController {
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationController.class);
