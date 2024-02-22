@@ -12,6 +12,8 @@ import lombok.Data;
  */
 @Data
 public class NotificationQuery {
+	
+	/** User that perform the query. */
 	private String user;
-	private String text;
+	
 }
