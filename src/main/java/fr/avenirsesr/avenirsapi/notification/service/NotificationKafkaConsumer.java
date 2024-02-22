@@ -28,7 +28,7 @@ public class NotificationKafkaConsumer {
 		
 	@KafkaListener(topics = "${avenirs.notification.kafka.topic}")
 	public void listen(Notification notification) {
-	    System.err.println("NotificationKafkaConsumer Received Message: " + notification);
+	    LOGGER.trace("NotificationKafkaConsumer Received Message: " + notification);
 	    notifications$.onNext(notification);
 	}
 	
