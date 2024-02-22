@@ -30,7 +30,7 @@ public class NotificationWebsocketHandler implements DisposableBean {
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationWebsocketHandler.class);
 
-	@Value("${avenirs.routes.notification.rt}")
+	@Value("${avenirs.routes.realtime}")
 	private String route;
 
 	/** Kafka consumer. */
@@ -79,7 +79,7 @@ public class NotificationWebsocketHandler implements DisposableBean {
 	 */
 	private void processNewNotification(NotificationQuery query, Notification notification) {
 		LOGGER.trace("Processing new notification: " + notification);
-		messagingTemplate.convertAndSend("/notification/rt",
+		messagingTemplate.convertAndSend("/realtime",
 				new NotificationResponse(query.getUser(), new Notification[] { notification }));
 	}
 
@@ -88,8 +88,8 @@ public class NotificationWebsocketHandler implements DisposableBean {
 	 * @param query The notification query to process.
 	 * @throws Exception
 	 */
-	@SendTo("/notification/rt")
-	@MessageMapping("/notification")
+	@SendTo("/realtime")
+	@MessageMapping("/rt-notification")
 	public void processNotificationQuery(NotificationQuery query) {
 		LOGGER.debug("Registering query: " + query);
 		this.subscribe(query);

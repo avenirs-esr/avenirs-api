@@ -32,12 +32,12 @@ public class NotificationWebsocketConfiguration  implements WebSocketMessageBrok
 	
 	/** end point for the notification web socket. */
 	@Getter
-	@Value("${avenirs.routes.notification.rt}")
+	@Value("${avenirs.routes.realtime}")
 	private String route;
 	
 	/** CORS Settings. */
 	@Getter
-	@Value("${avenirs.routes.notification.rt.cors}")
+	@Value("${avenirs.routes.realtime.cors}")
 	private String cors;
 	
 	/** CORS: Allowed Origin Pattern. */
@@ -56,14 +56,11 @@ public class NotificationWebsocketConfiguration  implements WebSocketMessageBrok
     public void registerStompEndpoints(StompEndpointRegistry registry) {
     	LOGGER.debug("Registering stomp end points.");
     	LOGGER.debug("Registering stomp end points: cors");
-         registry.addEndpoint("/notification").setAllowedOriginPatterns(cors);
-         registry.addEndpoint("/notification").setAllowedOriginPatterns(cors).withSockJS();
+         registry.addEndpoint("/rt-notification").setAllowedOriginPatterns(cors);
+         registry.addEndpoint("/rt-notification").setAllowedOriginPatterns(cors).withSockJS();
     }
     
-    @Bean
-	String sendTo(@Value("${avenirs.routes.notification.rt}") String sendTo) {
-        return sendTo;
-    }
+  
 
 
 
