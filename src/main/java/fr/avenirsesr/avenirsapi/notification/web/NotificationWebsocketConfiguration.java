@@ -54,9 +54,10 @@ public class NotificationWebsocketConfiguration  implements WebSocketMessageBrok
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-    	System.err.println("-----> CORS" + cors);
-         registry.addEndpoint("/messages").setAllowedOriginPatterns(cors);
-         registry.addEndpoint("/messages").setAllowedOriginPatterns(cors).withSockJS();
+    	LOGGER.debug("Registering stomp end points.");
+    	LOGGER.debug("Registering stomp end points: cors");
+         registry.addEndpoint("/notification").setAllowedOriginPatterns(cors);
+         registry.addEndpoint("/notification").setAllowedOriginPatterns(cors).withSockJS();
     }
     
     @Bean

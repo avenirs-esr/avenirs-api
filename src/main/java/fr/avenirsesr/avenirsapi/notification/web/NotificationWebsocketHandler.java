@@ -89,7 +89,7 @@ public class NotificationWebsocketHandler implements DisposableBean {
 	 * @throws Exception
 	 */
 	@SendTo("/notification/rt")
-	@MessageMapping("/messages")
+	@MessageMapping("/notification")
 	public void processNotificationQuery(NotificationQuery query) {
 		LOGGER.debug("Registering query: " + query);
 		this.subscribe(query);
