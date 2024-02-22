@@ -36,7 +36,7 @@ public class NotificationController {
 		service.send(notification);
 		return message;
 	}
-	
+	@CrossOrigin
 	@PostMapping(value="${avenirs.routes.notification.create}")
 	public String createNotification(String audience, String messageBody){
 		LOGGER.debug("createNotification audience: " + audience);
