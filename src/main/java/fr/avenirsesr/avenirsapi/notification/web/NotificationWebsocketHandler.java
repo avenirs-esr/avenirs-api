@@ -3,12 +3,18 @@
  */
 package fr.avenirsesr.avenirsapi.notification.web;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
@@ -91,14 +97,15 @@ public class NotificationWebsocketHandler implements DisposableBean {
 	}
 
 	/**
-	 * Process a notification query.
+	 * Processes a notification query.
 	 * @param query The notification query to process.
-	 * @throws Exception
+	 * @param authHeader The authorization header.
 	 */
 	@SendTo("/realtime")
 	@MessageMapping("/rt-notification")
-	public void processNotificationQuery(NotificationQuery query) {
-		LOGGER.debug("Registering query: " + query);
+	public void processNotificationQuery(@Payload NotificationQuery query,  @Header(value="Authorization", required=false) String authHeader) {
+		LOGGER.debug("processNotificationQuery query: " + query);
+		LOGGER.debug("processNotificationQuery authHeader: " + authHeader);
 		this.subscribe(query);
 	}
 }
